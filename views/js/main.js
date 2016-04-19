@@ -405,7 +405,6 @@ var resizePizzas = function(size) {
   // Changes the value for the size of the pizza above the slider
   function changeSliderLabel(size) {
     switch(size) {
-      //var selectPizzaSize=document.querySelector("#pizzaSize").innerHTML;//assign js query to variable
       case "1":
         document.querySelector("#pizzaSize").innerHTML = "Small";
         return;
@@ -424,7 +423,7 @@ var resizePizzas = function(size) {
 
    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
-    var oldWidth = elem.offsetWidth;
+    var oldwidth = elem.offsetWidth;
     var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
     var oldSize = oldWidth / windowWidth;
 
@@ -449,11 +448,11 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-
-// Iterates through pizza elements on the page and changes their widths
+  // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
     //assign document.querySelectorAll(".randomPizzaContainer") to variable.
     //layout code is placed outside for loop to avoid FSL
+    //using tag getElementsByClass so that page can be rendered fastly.
     var eleme=document.getElementsByClassName(".randomPizzaContainer");
     var dx = determineDx(eleme[0], size);
       var newwidth = (eleme[0].offsetWidth + dx) + 'px';
@@ -461,7 +460,6 @@ var resizePizzas = function(size) {
       eleme[i].style.width = newwidth;
     }
   }
-
   changePizzaSizes(size);
 
   // User Timing API is awesome
@@ -475,7 +473,7 @@ window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
+  varizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -507,13 +505,16 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 //added outside of loop since calulation only need to occur once.(to get rid of FSL)
-var phase = []; 
-  for (var i = 0; i < =4; i++) {
-    phase.push(Math.sin(scrollTop / 1250 + i) * 100);
+
+var items = document.querySelectorAll('.mover');
+var phase;
+for (var i = 0; i < 5; i++) {
+  phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
   }
-  for (var i = 0, max = items.length; i < max; i++) {
-    items[i].style.left = items[i].basicLeft + phase[i%5] + 'px';
+  for (var i = 0; i < items.length; i++) {
+    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
+
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
   window.performance.mark("mark_end_frame");
