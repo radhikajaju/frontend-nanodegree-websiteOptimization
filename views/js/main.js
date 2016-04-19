@@ -454,7 +454,7 @@ var resizePizzas = function(size) {
   function changePizzaSizes(size) {
     //assign document.querySelectorAll(".randomPizzaContainer") to variable.
     //layout code is placed outside for loop to avoid FSL
-    var eleme=document.querySelectorAll(".randomPizzaContainer");
+    var eleme=document.getElementsByClassName(".randomPizzaContainer");
     var dx = determineDx(eleme[0], size);
       var newwidth = (eleme[0].offsetWidth + dx) + 'px';
     for (var i = 0; i <eleme.length; i++) {
@@ -507,14 +507,13 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 //added outside of loop since calulation only need to occur once.(to get rid of FSL)
-  var top = (document.body.scrollTop / 1250);
-  var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((top) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+var phase = []; 
+  for (var i = 0; i < =4; i++) {
+    phase.push(Math.sin(scrollTop / 1250 + i) * 100);
   }
-  
-
+  for (var i = 0, max = items.length; i < max; i++) {
+    items[i].style.left = items[i].basicLeft + phase[i%5] + 'px';
+  }
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
   window.performance.mark("mark_end_frame");
@@ -532,7 +531,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 15; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";

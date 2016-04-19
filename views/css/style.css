@@ -1,6 +1,8 @@
 /** {
   outline: 1px solid red !important;
 }*/
+-webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
+backface-visibility: hidden;
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
