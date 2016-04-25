@@ -452,7 +452,7 @@ function changePizzaSizes(size) {
     var pizzaContainerValue = document.getElementsByClassName("randomPizzaContainer");
     var dx = determineDx(pizzaContainerValue[0], size);
     var newwidth = (pizzaContainerValue[0].offsetWidth + dx) + 'px';
-    for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
+    for (var i = 0; i < pizzaContainerValue.length; i++) {
       pizzaContainerValue[i].style.width = newwidth;
     }
 }
